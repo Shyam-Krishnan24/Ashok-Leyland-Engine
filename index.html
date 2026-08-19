@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>"H" SERIES ENGINE HISTORY CARD (AUTO ENGINES) - HLEF 4790F-L2A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- VIEW 1: LANDING LOGIN PAGE -->
+  <main class="app-view active" id="view-login">
+    <div class="login-page-wrapper">
+      <div class="login-card">
+        <!-- Ashok Leyland Emblem Header -->
+        <div class="login-brand-header">
+          <div class="login-logo-circle">
+            <svg class="al-logo-svg" viewBox="0 0 100 100" width="56" height="56">
+              <circle cx="50" cy="50" r="46" fill="none" stroke="#ffffff" stroke-width="4" />
+              <circle cx="50" cy="50" r="38" fill="#002244" stroke="rgba(255,255,255,0.7)" stroke-width="2" />
+              <path d="M50 15 L53 25 L47 25 Z M50 85 L53 75 L47 75 Z M15 50 L25 53 L25 47 Z M85 50 L75 53 L75 47 Z M25 25 L34 32 L30 36 Z M75 75 L66 68 L70 64 Z M25 75 L32 66 L36 70 Z M75 25 L68 34 L64 30 Z" fill="#ffffff" />
+              <circle cx="50" cy="50" r="20" fill="#0b4da2" stroke="#ffffff" stroke-width="2" />
+              <text x="50" y="57" font-family="'Inter', sans-serif" font-size="22" font-weight="900" fill="#ffffff" text-anchor="middle">L</text>
+            </svg>
+          </div>
+          <div class="login-title-group">
+            <h1>ASHOK LEYLAND</h1>
+            <span>ENGINE DIVISION - MES ACCESS</span>
+          </div>
+        </div>
+
+        <!-- Login Form -->
+        <form class="login-form" onsubmit="handleLogin(event)">
+          <div class="login-badge-tag">Sequential Quality Tracking System</div>
+          <h2>Assembly Line Operator Login</h2>
+          <p class="login-subtitle">Sign in with your assigned Station Operator ID (Day / Afternoon / Night)</p>
+
+          <div id="login-error-msg" class="login-error-alert" style="display:none;"></div>
+
+          <div class="form-field">
+            <label for="login-username">Operator Username <span class="text-req">*</span></label>
+            <input type="text" id="login-username" class="login-input" placeholder="e.g. operatord-1, operatora-1, operatorn-1" required autofocus>
+            <small class="login-field-hint">Day: <code>operatord-1..75</code> | Afternoon: <code>operatora-1..75</code> | Night: <code>operatorn-1..75</code></small>
+          </div>
+
+          <div class="form-field">
+            <label for="login-password">PIN / Password <span class="text-req">*</span></label>
+            <input type="password" id="login-password" class="login-input" value="1234" placeholder="Enter PIN (1234)" required>
+          </div>
+
+          <div class="form-field">
+            <label for="login-quick-select">Quick Select Operator Station:</label>
+            <select id="login-quick-select" class="login-select"></select>
+          </div>
+
+          <button type="submit" class="btn-login-submit">
+            🔐 Sign In to Test Section
+          </button>
+        </form>
+
+        <div class="login-footer-info">
+          <span>Hosur Plant - I • "H" Series Auto Engines Assembly</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="app-layout">
+    <!-- LEFT SIDEBAR NAVIGATION (STREAMLINED) -->
+    <aside class="app-sidebar">
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-brand-header">
+        <div class="sidebar-brand-emblem">
+          <svg class="al-logo-svg" viewBox="0 0 100 100" width="42" height="42">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#ffffff" stroke-width="4" />
+            <circle cx="50" cy="50" r="38" fill="#002244" stroke="rgba(255,255,255,0.7)" stroke-width="2" />
+            <path d="M50 15 L53 25 L47 25 Z M50 85 L53 75 L47 75 Z M15 50 L25 53 L25 47 Z M85 50 L75 53 L75 47 Z M25 25 L34 32 L30 36 Z M75 75 L66 68 L70 64 Z M25 75 L32 66 L36 70 Z M75 25 L68 34 L64 30 Z" fill="#ffffff" />
+            <circle cx="50" cy="50" r="20" fill="#0b4da2" stroke="#ffffff" stroke-width="2" />
+            <text x="50" y="57" font-family="'Inter', sans-serif" font-size="22" font-weight="900" fill="#ffffff" text-anchor="middle">L</text>
+          </svg>
+        </div>
+        <div class="sidebar-brand-text">
+          <h2>ASHOK LEYLAND</h2>
+          <span>ENGINE DIVISION</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Only Test Section & Master Card) -->
+      <nav class="sidebar-nav">
+        <button type="button" class="sidebar-nav-btn active" id="tab-station" onclick="switchView('station')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/>
+            <line x1="3" y1="12" x2="3.01" y2="12"/>
+            <line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span class="nav-btn-text">TEST SECTIONS</span>
+        </button>
+
+        <button type="button" class="sidebar-nav-btn" id="tab-fullcard" onclick="switchView('fullcard')">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <span class="nav-btn-text">MASTER CARD</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Bottom Featured Division Card with Visual -->
+      <div class="sidebar-bottom-card">
+        <div class="sidebar-img-wrapper">
+          <svg viewBox="0 0 240 140" width="100%" height="100%" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#001a33"/>
+                <stop offset="100%" stop-color="#004080"/>
+              </linearGradient>
+            </defs>
+            <rect width="240" height="140" fill="url(#bgGrad2)"/>
+            <circle cx="120" cy="70" r="38" fill="none" stroke="#38bdf8" stroke-width="2"/>
+            <circle cx="120" cy="70" r="18" fill="#0284c7"/>
+            <text x="120" y="75" font-family="'Inter', sans-serif" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle">AL</text>
+            <text x="120" y="125" font-family="'Inter', sans-serif" font-size="9" font-weight="700" fill="#93c5fd" text-anchor="middle">ASSEMBLY LINE QUALITY</text>
+          </svg>
+        </div>
+        <div class="sidebar-card-brand">
+          <div class="sidebar-card-text">
+            <strong id="sidebar-user-tag">Operator 1 Day shift</strong>
+            <span>HOSUR - PLANT 1</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="app-main-wrapper">
+      <!-- Enterprise Top Status & Operator Header -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <div class="topbar-operator-chip">
+            <span class="op-icon">👤</span>
+            <span id="topbar-op-display" class="font-bold">Operator 1 Day shift</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button type="button" class="btn-logout" onclick="handleLogout()">
+            🚪 Sign Out
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEWS CONTAINER -->
+      <div class="app-views-container">
+
+        <!-- VIEW 2: ACTIVE TEST SECTION WORKSPACE -->
+        <main class="app-view" id="view-station">
+          <!-- Dynamic Workspace Injected via app.js with Image 1 Authentic Header -->
+          <div id="active-station-workspace-container"></div>
+        </main>
+
+        <!-- VIEW 3: MASTER CARD WRAPPER -->
+        <main class="app-view" id="view-fullcard">
+          <div class="fullcard-top-control-card">
+            <div id="master-card-engine-selector-container"></div>
+          </div>
+
+          <!-- 10-PAGE MASTER CARD DOCUMENT -->
+          <div id="master-card-document-wrapper">
+            <!-- PAGE 1 -->
+            <section class="page-container" id="page-1">
+              <header class="document-header">
+                <div class="header-left">
+                  <div class="company-logo-text">Ashok Leyland</div>
+                  <div class="plant-location">Hosur - I</div>
+                </div>
+                <div class="header-center">
+                  <div class="safety-instruction-en">Close the opened parts in Engine</div>
+                  <div class="safety-instruction-ta">என்ஜினின் திறந்திருக்கும் பாகங்களை மூடுக</div>
+                  <div class="safety-instruction-ta-sub">எஞ்சினில் திறந்து வைத்தால் தூசுகள் ஒட்டிக்கொள்ளும்</div>
+                </div>
+                <div class="header-right">
+                  <div class="brand-title">ASHOK LEYLAND</div>
+                  <div class="brand-tagline">Koi Manzil Door Nahin</div>
+                </div>
+              </header>
+
+              <div class="card-title-bar">
+                <h1 class="card-main-title">"H" SERIES ENGINE HISTORY CARD (AUTO ENGINES)</h1>
+                <div class="document-code">HLEF 4790F-L2A</div>
+              </div>
+
+              <form class="engine-meta-form">
+                <div class="meta-row meta-row-1">
+                  <div class="field-group flex-2">
+                    <label for="engine-no-spec">Engine No. / Spec.:</label>
+                    <input type="text" id="engine-no-spec" name="engine-no-spec">
+                  </div>
+                  <div class="field-group flex-1">
+                    <label for="date-input">Date :</label>
+                    <input type="text" id="date-input" name="date-input">
+                  </div>
+                  <div class="field-group flex-1 shift-group">
+                    <label>Shift :</label>
+                    <div class="shift-options">
+                      <span class="shift-box">I</span>
+                      <span class="shift-box">II</span>
+                      <span class="shift-box">III</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="meta-row meta-row-2">
+                  <div class="barcode-box">
+                    <label for="barcode-input" class="barcode-label">PASTE BAR CODE STICKER HERE</label>
+                    <input type="text" id="barcode-input" name="barcode-input" class="barcode-input" placeholder="Enter Bar Code">
+                  </div>
+                  <div class="model-spec-block">
+                    <div class="model-title-row">
+                      <span class="model-label">Model</span>
+                      <span class="model-value">H6 BSVI - 4V Engines</span>
+                      <div class="hp-options">
+                        <span class="hp-box">250 HP</span>
+                        <span class="hp-box">280 HP</span>
+                      </div>
+                    </div>
+                    <div class="deviation-box">
+                      <label for="major-deviation">Major Deviation Observed, to be taken care in all stages</label>
+                      <input type="text" id="major-deviation" name="major-deviation">
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <aside class="server-note">
+                <p><strong>Note :</strong> Sl. No. CB05, SB04A, 05A, 09A, LB04, 08 &amp; 17- Nut runner datas stored in respective machine Computers / Servers</p>
+              </aside>
+
+              <section class="precautions-section">
+                <h2 class="precautions-heading">PRECAUTION:</h2>
+                <ol>
+                  <li>Ensure all parts are cleaned. Should be free from dust, scuff, burr, oil and paint.</li>
+                  <li>Lubricate with Engine oil wherever necessary.</li>
+                  <li>Nuts / Bolts must turn while torqueing</li>
+                  <li>Refer work instruction sheet.</li>
+                  <li>Write 'S' in the Remarks column for shortage, If any assembly issues, Write the details in the respective rows in detail.</li>
+                </ol>
+              </section>
+
+              <section class="components-serial-section">
+                <table class="serial-numbers-table">
+                  <tbody>
+                    <tr>
+                      <td><strong>1. Cylinder Block Sl.No.</strong></td>
+                      <td><input type="text"></td>
+                      <td><strong>7. FIP Sl.No. &amp; Type</strong></td>
+                      <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>2. Block Model</strong></td>
+                      <td>PCN model only</td>
+                      <td><strong>8. Air compressor Sl.No.</strong></td>
+                      <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>3. Liner color on Block</strong></td>
+                      <td>
+                        <span class="checkbox-option"><input type="checkbox"> Yellow</span>
+                        <span class="checkbox-option"><input type="checkbox"> Blue</span>
+                      </td>
+                      <td><strong>9. Starter motor Sl.No./ Make</strong></td>
+                      <td>LTVS / SEG <input type="text" class="inline-input"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>4. Crank shaft brg make</strong></td>
+                      <td>BM <input type="text" class="inline-input"></td>
+                      <td><strong>10. Alternator Sl.No. / Make</strong></td>
+                      <td>LTVS / SEG <input type="text" class="inline-input"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>5. Thrust washer make</strong></td>
+                      <td>BM <input type="text" class="inline-input"></td>
+                      <td><strong>11. Turbocharger Sl.No. / Make</strong></td>
+                      <td>TEL / CTTL <input type="text" class="inline-input"></td>
+                    </tr>
+                    <tr>
+                      <td><strong>6. Cr. shaft Sl.No.</strong></td>
+                      <td><input type="text"></td>
+                      <td><strong>12. Cyl. head serial No.</strong></td>
+                      <td><input type="text"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <!-- Master Reference Inspection Table for Stages -->
+              <section class="inspection-table-section">
+                <table class="process-checklist-table master-card-table">
+                  <thead>
+                    <tr>
+                      <th class="col-no">No.</th>
+                      <th class="col-aspects">Aspects to be checked</th>
+                      <th class="col-spec">Spec &amp; Units</th>
+                      <th class="col-method">Method</th>
+                      <th class="col-status">Status</th>
+                      <th class="col-remarks">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- CB01 -->
+                    <tr data-section="CB01">
+                      <td rowspan="3" class="stage-id">
+                        <div class="stage-wrapper">
+                          <span class="stage-badge">CB01</span>
+                          <span class="sec-status-badge" id="badge-CB01">Pending</span>
+                        </div>
+                      </td>
+                      <td>Ensure BSVI block-HCI coolant line / support bracket fixing holes availability visually</td>
+                      <td></td>
+                      <td></td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">Applicable for H6 BS6 250 HP</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB01">
+                      <td>Ensure BSVI 280 HP Block - Bracket hole near Mid dipstick availability visually</td>
+                      <td></td>
+                      <td></td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">Applicable for H6 BS6 280 HP</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB01">
+                      <td>Log Book writing &amp; Fitment of Dipstick Welch plugs on IP face of block - Location by Bar code scanning</td>
+                      <td>Proper position</td>
+                      <td>Visual / Digital Display</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">Scan &amp; Ensure correct location, and ensure usage of Loctite 962</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- CB02 -->
+                    <tr data-section="CB02">
+                      <td rowspan="5" class="stage-id">
+                        <div class="stage-wrapper">
+                          <span class="stage-badge">CB02</span>
+                          <span class="sec-status-badge" id="badge-CB02">Pending</span>
+                        </div>
+                      </td>
+                      <td>Fitment of Block guide tool - 2 Nos on Head face</td>
+                      <td>Proper position</td>
+                      <td>Air Gun</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB02">
+                      <td>Fitment of PCN and tighten allen screws</td>
+                      <td>16 - 18 Nm</td>
+                      <td>DC tool</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">Ensure fitment of PCN with 2.5mm wall thickness on mtg.hole area.</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB02">
+                      <td>Fitment of Screw Plug on Sump Face.</td>
+                      <td>45 - 55 Nm</td>
+                      <td>System Wrench</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">Shall use Terosan sealant</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB02">
+                      <td>Fit 'D' ring into Cam Counter bore by using sealant</td>
+                      <td colspan="2">Ensure proper seating of 'D' ring</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">Scan &amp; Ensure correct position</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB02">
+                      <td>Engine No. punching by Barcode Scanning.</td>
+                      <td>Legible,No over lap</td>
+                      <td>Visual</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+
+                    <!-- CB03 -->
+                    <tr data-section="CB03">
+                      <td rowspan="4" class="stage-id">
+                        <div class="stage-wrapper">
+                          <span class="stage-badge">CB03</span>
+                          <span class="sec-status-badge" id="badge-CB03">Pending</span>
+                        </div>
+                      </td>
+                      <td>Ensure cleanliness of Block, Crank Shaft / Brg Shells.</td>
+                      <td>No dust, Dirt, Rust</td>
+                      <td>Visual</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <div class="pdf-remark-hint">TW OK</div>
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB03">
+                      <td>Fitment of shell bearings on block crank bores</td>
+                      <td>Proper position</td>
+                      <td>Manually</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB03">
+                      <td>Apply oiling over crank bearings &amp; Position Crankshaft</td>
+                      <td>Proper position</td>
+                      <td>Visual</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-section="CB03">
+                      <td>Match Sl. Nos. of bearing Caps with Block Sl. Nos.</td>
+                      <td>Proper matching</td>
+                      <td>Visual</td>
+                      <td class="status-cell">
+                        <div class="status-btn-group">
+                          <button type="button" class="status-btn pass-btn" onclick="setRowStatus(this, 'pass')">✓</button>
+                          <button type="button" class="status-btn fail-btn" onclick="setRowStatus(this, 'fail')">✗</button>
+                        </div>
+                        <input type="hidden" class="row-status-value" value="">
+                      </td>
+                      <td class="remarks-cell">
+                        <div class="remark-container">
+                          <input type="text" class="remark-input" placeholder="Enter remark..." oninput="handleRemarkInput(this)">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </section>
+          </div>
+        </main>
+
+      </div><!-- /.app-views-container -->
+    </div><!-- /.app-main-wrapper -->
+  </div><!-- /.app-layout -->
+
+  <script src="app.js"></script>
+</body>
+</html>
